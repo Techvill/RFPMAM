@@ -1,0 +1,280 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Sep 4, 2016, 7:24:16 PM
+    Author     : JOEL F NGOZO
+*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url('https://fonts.googleapis.com/css?family=Cairo|Dosis|Oxygen|Quicksand');
+
+/*font-family: 'Dosis', sans-serif;*/
+/*font-family: 'Oxygen', sans-serif;*/
+/*font-family: 'Quicksand', sans-serif;*/
+/*font-family: 'Cairo', sans-serif;*/
+.navbar {
+    background: #1A3250;
+    width: 100%;
+    min-height: 100px;
+    padding: 10px !important;
+    border: none;
+    font-family: 'Quicksand', sans-serif;
+    box-shadow: 0 0 10px 0 #004d40;
+    /*margin-bottom: 10px !important;*/
+
+}
+
+body {
+    background: #b2dfdb;
+    overflow-x: hidden;
+}
+
+body * {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.navbar-brand {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: 0 auto;
+    color: #FFF;
+}
+
+.navbar-default .navbar-brand {
+    color: #FFF;
+}
+
+.fa {
+    color: #2199fe !important;
+}
+
+#no_bg {
+    background: none !important;
+    border: none !important;
+}
+
+.navbar-toggle {
+    z-index: 3;
+}
+
+.navbar .nav > .active > a {
+    color: #2199fe !important;
+    height: auto !important;
+    font-weight: bold;
+    background: none !important;
+
+}
+
+.active a {
+    /*background: none !important;*/
+}
+
+table * {
+    text-align: center !important;
+}
+
+.navbar .nav a {
+    color: #00bfa5 !important;
+    padding-top: 35px;
+    font-family: 'Cairo', sans-serif;
+
+    /*font-size: 16px;*/
+    /*margin-bottom: 10px !important;*/
+}
+
+.navbar-brand:hover {
+    color: #00bfa5;
+}
+
+#box-shadow {
+    background: #FFF;
+    box-shadow: 2px 2px 2px #006064;
+    margin-top: 10px;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+#art {
+    max-height: 150px;
+    min-height: 150px;
+}
+
+#profile-pic {
+    display: block;
+    max-width: 230px;
+    max-height: 95px;
+    width: auto;
+    height: auto;
+}
+
+#art-work {
+    display: block;
+    max-width: 100px;
+    max-height: 75px;
+    width: auto;
+    height: auto;
+}
+
+#news_event {
+    max-height: 400px;
+}
+
+#news_event_two {
+    max-height: 200px;
+    min-height: 200px;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #0093DE;
+    margin: 1em 0;
+    padding: 0;
+
+}
+
+#box-shadow:hover {
+    -moz-box-shadow: 0 0 5px #1e1e1e;
+    -webkit-box-shadow: 0px 0px 5px #1e1e1e;
+    box-shadow: 0px 0px 5px #1e1e1e;
+    -webkit-transition: box-shadow 0.3s ease-in-out 0s;
+    -moz-transition: box-shadow 0.3s ease-in-out 0s;
+    -o-transition: box-shadow 0.3s ease-in-out 0s;
+    -ms-transition: box-shadow 0.3s ease-in-out 0s;
+    transition: box-shadow 0.3s ease-in-out 0s;
+}
+
+#white-back {
+    margin-top: 10px;
+    background: #FFF;
+    padding: 10px;
+}
+
+#slider {
+    background: #3172bc;
+    height: 250px;
+    color: #FFF;
+}
+
+#inlineFormInputName2 {
+    margin-top: 10px;
+    border-radius: 0 !important;
+}
+
+.mb-2 {
+    margin-top: 10px;
+    border-radius: 0 !important;
+}
+
+#footer {
+
+    margin-top: 15px;
+    padding: 10px;
+    color: #FFF;
+    background: #263238;
+}
+
+label {
+    text-align: right !important;
+    font-weight: lighter !important;
+}
+
+textarea {
+    resize: none;
+}
+
+#footer a {
+    color: #FFF;
+}
+
+fieldset, label {
+    margin: 0;
+    padding: 0;
+}
+
+.rating {
+    border: none;
+    float: left;
+}
+
+.rating > input {
+    display: none;
+}
+
+.rating > label:before {
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+}
+
+.rating > .half:before {
+    content: "\f089";
+    position: absolute;
+}
+
+.rating > label {
+    color: #ddd;
+    float: right;
+}
+
+.rating > input:checked ~ label,
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+    color: #FFD700;
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked ~ label:hover,
+.rating > label:hover ~ input:checked ~ label,
+.rating > input:checked ~ label:hover ~ label {
+    color: #ff6b3d;
+}
+
+.table td,
+.table th {
+    white-space: nowrap;
+    width: 1%;
+}
+
+#logo {
+    width: 200px;
+    height: 200px;
+}
+
+.text-white {
+    color: #FFF;
+}
+
+.fa-bars {
+    color: #FFF !important;
+
+}
+
+#back {
+
+    background: url('../../IMedia/logo.png') no-repeat center center;
+    background-size: contain;
+    height: 90px !important;
+    margin-bottom: 10px;
+    padding: 10px !important;
+}
+
+@media (max-width: 767px) {
+    .navbar-nav > li > a {
+        line-height: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}

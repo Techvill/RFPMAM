@@ -1,0 +1,21 @@
+{
+  "name": "jfngozo/rfpmam",
+  "description": "Web Application for Music Uploads and Downloads for RFP",
+  "license": "Joel F Ngozo",
+  "authors": [
+    {
+      "name": "Joel F Ngozo",
+      "email": "Joelngozo@gmail.com"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "InfinityFramework"
+    ]
+  },
+  "require": {
+    "gargron/fileupload": "~1.4.0",
+    "delight-im/file-upload": "^1.2",
+    "ext-json": "*"
+  }
+}

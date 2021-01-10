@@ -1,0 +1,75 @@
+[
+    {
+        "name": "delight-im/file-upload",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/delight-im/PHP-FileUpload.git",
+            "reference": "a793f4b9d6d2fc4ce57487c324a1547cce942cb6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/delight-im/PHP-FileUpload/zipball/a793f4b9d6d2fc4ce57487c324a1547cce942cb6",
+            "reference": "a793f4b9d6d2fc4ce57487c324a1547cce942cb6",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.6.0"
+        },
+        "time": "2018-03-13T18:36:56+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Delight\\FileUpload\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "Simple and convenient file uploads — secure by default",
+        "homepage": "https://github.com/delight-im/PHP-FileUpload",
+        "keywords": [
+            "file",
+            "files",
+            "form",
+            "input",
+            "upload",
+            "validation"
+        ]
+    },
+    {
+        "name": "gargron/fileupload",
+        "version": "v1.4.5",
+        "version_normalized": "1.4.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Gargron/fileupload.git",
+            "reference": "fd2b79c9b868b9987925e098f5562231e691ce7d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Gargron/fileupload/zipball/fd2b79c9b868b9987925e098f5562231e691ce7d",
+            "reference": "fd2b79c9b868b9987925e098f5562231e691ce7d",
+            "shasum": ""
+        },
+        "require-dev": {
+            "phpunit/phpunit": "3.7.*"
+        },
+        "time": "2017-05-19T17:43:52+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "FileUpload\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "File uploading library capable of handling large/chunked/multiple file uploads"
+    }
+]

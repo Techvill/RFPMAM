@@ -1,0 +1,306 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Joeln
+ * Date: 26-Jan-18
+ * Time: 2:41 AM
+ */
+
+
+require '../InfinityFramework/DSN/DBH.php';
+require_once '../InfinityFramework/MODEL/ArtistsModel.php';
+require_once '../InfinityFramework/MODEL/SongsModel.php';
+require_once '../InfinityFramework/MODEL/AlbumsModel.php';
+require_once '../InfinityFramework/POHO/ArtistsAdapter.php';
+require_once '../InfinityFramework/POHO/SongsAdapter.php';
+require_once '../InfinityFramework/POHO/AlbumsAdapter.php';
+
+?>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>RFP Music And Arts | Albums - Download and Stream albums </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="../IMedia/logo.png" rel="icon" type="image/png"/>
+
+    <meta property="og:site_name" content="Raised For a Purpose Music and Arts Ministry. "/>
+    <meta property="og:title"
+          content="Stream and download our albums"/>
+    <meta property="og:description" content="Download. Listen. Share Music"/>
+    <meta property="og:image" content="http://www.rfpmam.com/IMedia/logo.png">
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://www.rfpmam.com/albums/index.php"/>
+    <meta property="fb:app_id" content="138681726961769"/>
+    <!--Cascading style sheet-->
+
+
+    <!--End of css calling-->
+
+    <!--online resources-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../IUX/UserInterface/bootstrap.css"/>
+    <link rel="stylesheet" href="../IUX/UserInterface/infix.css"/>
+    <script src="../IUX/UserExperience/jquery-3.2.1.min.js"></script>
+    <script src="../IUX/UserExperience/jquery.bxslider.js"></script>
+    <script src="../IUX/UserExperience/bootstrap.js"></script>
+
+
+    <!--end of online resources-->
+
+
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="fa fa-bars"></i> <span class="text-white">Menu</span>
+            </button>
+            <a class="navbar-brand" id="back" href="../index"> </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="../index.php"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                <li><a href="../artists/index.php">ARTISTS</a></li>
+                <li class="active"><a href="index.php">ALBUMS</a></li>
+                <li><a href="../songs/index.php">SONGS</a></li>
+                <li><a href="../genres/index.php">GENRES</a></li>
+                <li><a href="../spoken/index.php">SPOKEN WORD</a></li>
+
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="../lyrics/index.php">LYRICS</a></li>
+                <li><a href="../events/index.php">NEWS & EVENTS</a></li>
+                <li><a href="../trends/index.php">TRENDING</a></li>
+                <li>
+                    <br/>
+                    <form class="form-inline" action="search.php" method="GET">
+
+                        <input type="text" name="search" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2"
+                               placeholder="Holy Spirit">
+
+
+                        <button class="btn btn-primary mb-2" type="">
+                            <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+
+<div class="container">
+    <div class="container">
+        <div class="col-md-12">
+            <h4 class="text-center">TRENDING ALBUMS</h4>
+            <hr/>
+
+            <?php
+            $alb_id = "";
+            $url_zip = "";
+            $PreparedStatement = "SELECT * FROM trending, artists,albums WHERE trending.artist_id = artists.artists_id 
+                                    AND trending.artist_id = albums.artist_id;";
+
+            $ResultSet = DBH::getInstance()->CRUD($PreparedStatement);
+
+            $Rows = $ResultSet->rowCount();
+
+            if ($Rows > 0) {
+
+
+                foreach ($ResultSet as $feed) {
+                    $name = $feed['name_alb'];
+                    $id = $feed['artist_id'];
+                    $artist = $feed['name'];
+                    $alb_id = $feed['alb_id'];
+                    $downloads = $feed['downloads_alb'];
+                    $photo = $feed['cover'];
+                    $url_zip = $feed['url'];
+
+
+                    echo "<div class='col-md-2' >
+                        <div class='col-md-12' id='box-shadow'>
+                        <h5 class='text-center'><a href='album-songs.php?id=$alb_id'>$name</a> </h5><hr/>
+                        <h5 class='text-center'><a href='../artists/view.php?id=$id'>$artist</a> </h5>
+                    <img src='../IMedia/covers/$photo' id='art-work' class='img img-responsive center-block'>
+                    <h5 class='text-center'>$downloads downloads</h5><hr/>
+                    <h6 class='text-center'>
+                      <a href='download-alb.php?uid=$alb_id'><i class='fa fa-download' aria-hidden='true'></i></a>
+                    </h6>
+                   
+                </div></div>";
+
+                }
+
+
+            } else {
+                echo "<h4 class='text-center text-warning'>There are no trending artists available.</h4>";
+            }
+
+
+            if (isset($_POST['download_alb'])) {
+
+                AlbumsModel::setAlbumID($alb_id);
+                AlbumsAdapter::CheckDownloads();
+                $Dl = AlbumsModel::getJSONFEED();
+                $Data = json_decode($Dl, true);
+
+                $Downloads = '';
+                foreach ($Data as $datum) {
+                    $Downloads = $datum['downloads_alb'];
+
+                }
+
+                AlbumsModel::setDownloads($Downloads + 1);
+
+                AlbumsModel::setAlbumID($alb_id);
+                AlbumsAdapter::UpdateSongDownloads();
+                $Result = AlbumsModel::getResult();
+                if ($Result == "TRUE") {
+
+                    echo "<meta http-equiv='refresh' content='1;url=../DL/albums/$url_zip'>";
+                    echo "<p> Your download will start in a second. If not, use this link to download the 
+                                        <a download='true' href='../DL/albums/$url_zip'>Download</a></p>";
+
+                }
+            }
+
+            ?>
+
+
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h4 class="text-center">ALBUMS</h4>
+        <div class="col-md-12" id="white-back">
+            <div class="col-md-4 col-md-offset-4">
+                <form class="form-horizontal text-center" action="" method="POST">
+                    <br/>
+                    <select required class="select form-control" id="" name="sort_method">
+                        <option>Sort Method</option>
+                        <option value="new">New Artists</option>
+                        <option value="most_alb">Most Downloaded Albums</option>
+                    </select>
+
+
+                    <button class="btn btn-primary mb-2" name="sort" type="">
+                        <span><i class="fa fa-sort" aria-hidden="true"></i></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <?php
+
+            AlbumsAdapter::LoadTopTwentyAllAlbums();
+
+            $Res = AlbumsModel::getResult();
+
+            if (AlbumsModel::getResult() == "TRUE") {
+
+
+                $Data = json_decode(AlbumsModel::getJSONFEED(), true);
+
+
+                foreach ($Data as $feed) {
+                    $name = $feed['name_alb'];
+                    $id = $feed['artist_id'];
+                    $artist = $feed['name'];
+                    $alb_id = $feed['alb_id'];
+                    $downloads = $feed['downloads_alb'];
+                    $photo = $feed['cover'];
+                    $url_zip = $feed['url'];
+
+
+                    echo "<div class='col-md-2' >
+                        <div id='box-shadow' class='col-md-12'> 
+                        <h5 class='text-center'><a href='album-songs.php?id=$alb_id'>$name</a> </h5><hr/>
+                        <h5 class='text-center'><a href='../artists/view.php?id=$id'>$artist</a> </h5>
+                    <img src='../IMedia/covers/$photo' id='art' class='img img-responsive center-block'>
+                    <h5 class='text-center'>$downloads downloads</h5><hr/>
+                    <h6 class='text-center'>
+                     <a href='download-alb.php?uid=$alb_id'><i class='fa fa-download' aria-hidden='true'></i></a>
+                  </div>  </h6>
+                   
+                </div>";
+
+                }
+
+            } else {
+                echo "<h4 class='text-warning'>No albums were found!!</h4>";
+            }
+
+
+            ?>
+        </div>
+    </div>
+</div>
+
+<div class="row" id="footer">
+    <div class="container">
+        <div class="col-md-4 col-sm-6">
+            <h5>Contacts</h5>
+            <hr/>
+
+            <p>Raised For a Purpose Ministries</p>
+            <p>P.O Box 5210</p>
+            <p>Limbe, Malawi</p>
+            <p>+265 992 115 302 </p>
+            <p> +265 888 071 734</p>
+            <p> mam@rfpministries.com</p>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <h5>SOCIAL MEDIA</h5>
+            <hr/>
+
+            <p><a href="https://www.facebook.com/rfp.musicandarts/"><i class="fa fa-facebook" aria-hidden="true"></i>
+                    &nbsp; | Music and Arts</a></p>
+            <p><a href="https://twitter.com/RFPMinistries"><i class="fa fa-twitter" aria-hidden="true"></i>
+                    &nbsp; | RFP Ministries</a></p>
+            <p><a href="https://www.facebook.com/RFPMinistriesNews"><i class="fa fa-facebook" aria-hidden="true"></i>
+                    &nbsp; | RFP News</a></p>
+            <p><a href="https://www.youtube.com/channel/UC1NC0ZJbmWjE4rkOqMzw4aQ
+"><i class="fa fa-youtube" aria-hidden="true"></i>&nbsp; | Youtube</a></p>
+
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <h5>OTHER LINKS</h5>
+            <hr/>
+            <p><a href="http://www.rfpministries.com">RFP Ministries</a></p>
+            <p><a href="../about.php">About</a></p>
+            <p><a href="../policy.php">Contacts</a></p>
+            <p><a href="../rights.php">Rights Policy</a></p>
+
+        </div>
+
+
+    </div>
+    <div class="col-md-12">
+        <hr/>
+        <h6 class="text-center"> Raised For a Purpose | 2018 </h6>
+    </div>
+</div>
+
+</body>
+</html>
+
+
